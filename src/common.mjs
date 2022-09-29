@@ -20,5 +20,18 @@ export const handleShutdown = (server) => {
       shutdown(signal, signals[signal]);
     });
   });
+}
 
+export const showUsageInfo = (proxyUri) => {
+  console.log(`
+------------------------------------------------------------
+## Example Usage:
+
+curl --include \\
+  --head \\
+  --show-error \\
+  --proxytunnel \\
+  --proxy "${proxyUri}" http://www.bing.com/
+
+`);
 }

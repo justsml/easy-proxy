@@ -58,7 +58,7 @@ Set your `PROXY_URI` environment variable, then run:
 
 ```sh
 # Example PROXY_URI:
-#PROXY_URI=http://test:test123@localhost:8080
+#PROXY_URI=http://test:test123@localhost:5050
 
 curl --include \
      --head \

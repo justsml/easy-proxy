@@ -1,6 +1,7 @@
 import os from "os";
 import config from "./config.mjs";
 import { Server } from "proxy-chain";
+import { showUsageInfo } from "./common.mjs";
 
 export const startProxy = () => {
   const server = new Server({
@@ -30,13 +31,14 @@ export const startProxy = () => {
       const proxyUri = `http://${config.username}:${saferPassword}@${host
         }:${server.port}`;
 
-      console.log(`Proxy server running at:\n${proxyUri}\n`);
+      console.log(`------------------------------------------------------------\n# Proxy Running!\n\n${proxyUri}\n`);
+      showUsageInfo(proxyUri);
     })
 
   return server
     .on("connectionClosed", ({ connectionId, stats }) => {
       console.log(`Connection ${connectionId} closed`);
-      console.dir(stats);
+      // console.dir(stats);
     })
     .on("requestFailed", ({ request, error }) => {
       console.log(`Request ${request.url} failed`);
