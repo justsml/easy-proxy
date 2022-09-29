@@ -24,8 +24,8 @@ npm start -- --username test --password test123 --port 5050
 
 | Name                  | CLI & Env Args
 |-----------------------|----------------|
-| username*             | `--username`, `PROXY_USERNAME`
-| password*             | `--password`, `PROXY_PASSWORD`
+| username              | `--username`, `PROXY_USERNAME`
+| password              | `--password`, `PROXY_PASSWORD`
 | port                  | `--port`, `PORT` (default: `5050`)
 
 ## Development
