@@ -42,5 +42,4 @@ export const startProxy = () => {
       console.log(`Request ${request.url} failed`);
       console.error(error);
     });
-
 };

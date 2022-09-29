@@ -11,7 +11,13 @@ npm install -g @justsml/easy-proxy
 ```
 
 ```sh
-easy-proxy --username test --password test123
+easy-proxy \
+  --username test \
+  --password test123 \
+  --port 5050
+
+# or
+npm start -- --username test --password test123 --port 5050
 ```
 
 ## Options
@@ -26,4 +32,37 @@ easy-proxy --username test --password test123
 
 ```sh
 npm start -- --username test --password test123
+```
+
+You can define config via environment variables and/or CLI args:
+
+```sh
+PROXY_USERNAME=test PROXY_PASSWORD=test123 npm start
+```
+
+```sh
+# Set values for current shell session
+export PROXY_USERNAME=test
+export PROXY_PASSWORD=test123
+
+npm start -- --port 5050
+```
+
+## Client-side Testing
+
+Start a proxy and grab the printed proxy URI. We'll need to use it to configure client access.
+
+To test quickly with `curl`:
+
+Set your `PROXY_URI` environment variable, then run:
+
+```sh
+# Example PROXY_URI:
+#PROXY_URI=http://test:test123@localhost:8080
+
+curl --include \
+     --head \
+     --show-error \
+     --proxytunnel \
+     --proxy "$PROXY_URI" http://www.bing.com/
 ```

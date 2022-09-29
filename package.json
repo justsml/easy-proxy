@@ -6,7 +6,11 @@
   "type": "module",
   "bin": "src/index.mjs",
   "scripts": {
-    "start": "src/index.mjs"
+    "start": "src/index.mjs",
+    "docker:build": "docker build -t justsml/easy-proxy .",
+    "docker:start": "docker run --name easy-proxy -p 8080:8080 -e PORT=8080 -e PROXY_USERNAME=$PROXY_USERNAME -e PROXY_PASSWORD=$PROXY_PASSWORD justsml/easy-proxy",
+    "docker:service": "docker run --daemon --name easy-proxy -d -p 8080:8080 -e PORT=8080 -e PROXY_USERNAME=$PROXY_USERNAME -e PROXY_PASSWORD=$PROXY_PASSWORD justsml/easy-proxy",
+    "docker:cleanup": "docker rm -f easy-proxy"
   },
   "keywords": ["http-proxy", "proxy-tunnel", "proxy", "cli-proxy"],
   "author": {

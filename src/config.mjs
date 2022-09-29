@@ -21,7 +21,7 @@ export default autoConfig({
     required: true,
   },
   port: {
-    args: ['PORT'],
+    args: ['--port', 'PORT'],
     default: 5050,
     type: 'number',
     help: 'Port where the server will listen.',
