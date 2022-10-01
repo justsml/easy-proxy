@@ -10,14 +10,19 @@ export default autoConfig({
     args: ['--env', 'NODE_ENV'],
     default: 'development',
   },
+  publicHost: {
+    args: ['--public-host', 'PUBLIC_HOST'],
+    help: 'The public host name for the proxy server.',
+    default: null,
+  },
   username: {
     args: ['--username', 'PROXY_USERNAME'],
-    help: 'Username to access this proxy. Proxy URI format: http://username:pasword@host:port',
+    help: 'Username to access this proxy.',
     required: true,
   },
   password: {
     args: ['--password', 'PROXY_PASSWORD'],
-    help: 'Password to access this proxy. Proxy URI format: http://username:pasword@host:port',
+    help: 'Password to access this proxy.',
     required: true,
   },
   port: {
@@ -28,3 +33,4 @@ export default autoConfig({
     required: true,
   },
 });
+

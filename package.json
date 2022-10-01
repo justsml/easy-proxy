@@ -1,7 +1,7 @@
 {
   "name": "@justsml/easy-proxy",
   "private": false,
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Simple streaming proxy service. Features basic authentication, easy configuration and clear code.",
   "main": "src/index.mjs",
   "type": "module",
@@ -12,7 +12,7 @@
     "publish:github": "npm publish --access public --registry https://npm.pkg.github.com",
     "docker:build": "docker build -t justsml/easy-proxy .",
     "docker:start": "docker run --name easy-proxy --rm -p 5050:5050 -e PORT=5050 -e PROXY_USERNAME=$PROXY_USERNAME -e PROXY_PASSWORD=$PROXY_PASSWORD justsml/easy-proxy",
-    "docker:service": "docker run --daemon --rm --name easy-proxy -d -p 5050:5050 -e PORT=5050 -e PROXY_USERNAME=$PROXY_USERNAME -e PROXY_PASSWORD=$PROXY_PASSWORD justsml/easy-proxy",
+    "docker:service": "docker run -d --rm --name easy-proxy -p 5050:5050 -e PORT=5050 -e PROXY_USERNAME=$PROXY_USERNAME -e PROXY_PASSWORD=$PROXY_PASSWORD justsml/easy-proxy",
     "docker:cleanup": "docker rm -f easy-proxy"
   },
   "keywords": ["http-proxy", "proxy-tunnel", "proxy", "cli-proxy"],

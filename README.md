@@ -27,6 +27,18 @@ npm start -- --username test --password test123 --port 5050
 | username              | `--username`, `PROXY_USERNAME`
 | password              | `--password`, `PROXY_PASSWORD`
 | port                  | `--port`, `PORT` (default: `5050`)
+| publicHost            | `--public-host`, `PUBLIC_HOST`
+
+Set the `PUBLIC_HOST` environment variable to an accessible DNS name (or IP Address) of the proxy server.
+
+For example, in AWS EC2, you can access the IP via an internal HTTP call:
+
+```sh
+curl http://169.254.169.254/latest/meta-data/public-ipv4
+
+# And to set it to the environment variable:
+export PUBLIC_HOST=$(curl http://169.254.169.254/latest/meta-data/public-ipv4)
+```
 
 ## Development
 

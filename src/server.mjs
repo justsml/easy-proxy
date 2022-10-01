@@ -1,7 +1,6 @@
-import os from "os";
 import config from "./config.mjs";
 import { Server } from "proxy-chain";
-import { showUsageInfo } from "./common.mjs";
+import { getHostName, showUsageInfo } from "./common.mjs";
 
 export const startProxy = () => {
   const server = new Server({
@@ -23,10 +22,7 @@ export const startProxy = () => {
         config.env === "development"
           ? config.password
           : Array(config.password?.length || 0).fill("*");
-      let host = server.server.address().address;
-      if (host === "::" || host.startsWith('127.0.0')) {
-        host = os.hostname() ?? process.env.HOSTNAME ?? "localhost";
-      }
+      let host = getHostName(server);
 
       const proxyUri = `http://${config.username}:${saferPassword}@${host
         }:${server.port}`;
@@ -45,3 +41,4 @@ export const startProxy = () => {
       console.error(error);
     });
 };
+

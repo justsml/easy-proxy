@@ -1,4 +1,10 @@
-// credit: https://medium.com/@gchudnov/trapping-signals-in-docker-containers-7a57fdda7d86
+import os from "os";
+import config from "./config.mjs";
+
+/**
+ * This is for graceful shutdown in container & specialized hosting envs.
+ * @copyright /credit: https://medium.com/@gchudnov/trapping-signals-in-docker-containers-7a57fdda7d86
+ */
 export const handleShutdown = (server) => {
   const signals = {
     'SIGHUP': 1,
@@ -34,4 +40,18 @@ curl --include \\
   --proxy "${proxyUri}" http://www.bing.com/
 
 `);
+}
+
+/**
+ * Best effort auto-detection of public IP w/o a required external HTTP call.
+ * 
+ * @param {*} server 
+ * @returns 
+ */
+export function getHostName(server) {
+  let host = config.publicHost ?? server.server.address().address;
+  if (host === "::" || host.startsWith('127.0.0')) {
+    host = os.hostname() ?? process.env.HOSTNAME ?? "localhost";
+  }
+  return host;
 }
