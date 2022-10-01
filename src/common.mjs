@@ -1,5 +1,5 @@
+import chalk from "chalk";
 import os from "os";
-import config from "./config.mjs";
 
 /**
  * This is for graceful shutdown in container & specialized hosting envs.
@@ -7,9 +7,9 @@ import config from "./config.mjs";
  */
 export const handleShutdown = (server) => {
   const signals = {
-    'SIGHUP': 1,
-    'SIGINT': 2,
-    'SIGTERM': 15
+    SIGHUP: 1,
+    SIGINT: 2,
+    SIGTERM: 15,
   };
   // Do any necessary shutdown logic for our application here
   const shutdown = (signal, value) => {
@@ -26,32 +26,50 @@ export const handleShutdown = (server) => {
       shutdown(signal, signals[signal]);
     });
   });
-}
+};
 
 export const showUsageInfo = (proxyUri) => {
   console.log(`
-------------------------------------------------------------
-## Example Usage:
+${chalk.bold.greenBright(`# `) + chalk.bgGreen.whiteBright(` Easy-Proxy Started! `) + ` ✨🚀
 
-curl --include \\
-  --head \\
-  --show-error \\
-  --proxytunnel \\
-  --proxy "${proxyUri}" http://www.bing.com/
+${chalk.magenta(`------------------ 👇 Client Proxy Config 👇 -----------------`)}
 
+${chalk.greenBright(`##`)} ${chalk.bold(`Configure your HTTP client with the following URI:`)}
+
+${chalk.blueBright(proxyUri)}`}
+
+
+${chalk.yellow(`--------------------- 🔎 Test Commands 🔍 --------------------`)}
+
+${chalk.greenBright(`##`) + 
+chalk.bold(` Check Proxy Connectivity`)}
+
+ ${chalk.whiteBright(`curl --head --proxytunnel --proxy "${proxyUri}" http://www.bing.com/`)}
+
+
+${chalk.greenBright(`##`)} ${chalk.bold(`Determine Proxy's Visible IP Address`)}
+This should always return the same IP regardless of the source network.
+
+${chalk.whiteBright(`curl --proxytunnel --proxy "${proxyUri}" --silent http://checkip.amazonaws.com/`)}
+
+${chalk.magentaBright(`>`)} ${chalk.italic.blue(`Note: `) + chalk.italic(`Uses AWS "Check My IP" service.`)}
+
+
+${chalk.dim`To exit, press ` + chalk.bold`Ctrl+C` + chalk.dim` or send a ` + chalk.bold`SIGTERM` + chalk.dim` signal.`}
 `);
-}
+};
+
 
 /**
  * Best effort auto-detection of public IP w/o a required external HTTP call.
- * 
- * @param {*} server 
- * @returns 
+ *
+ * @param {*} server
+ * @returns
  */
 export function getHostName(server) {
-  let host = config.publicHost ?? server.server.address().address;
-  if (host === "::" || host.startsWith('127.0.0')) {
-    host = os.hostname() ?? process.env.HOSTNAME ?? "localhost";
+  let host = server?.server?.address().address;
+  if (!host || host === "::" || host.startsWith("127.0.0")) {
+    host = os.hostname() ?? "localhost";
   }
   return host;
 }

@@ -26,8 +26,8 @@ npm start -- --username test --password test123 --port 5050
 |-----------------------|----------------|
 | username              | `--username`, `PROXY_USERNAME`
 | password              | `--password`, `PROXY_PASSWORD`
-| port                  | `--port`, `PORT` (default: `5050`)
-| publicHost            | `--public-host`, `PUBLIC_HOST`
+| port                  | `--port`, `PROXY_PORT`, `PORT` (default: `5050`)
+| proxyHost             | `--proxy-host`, `PROXY_HOST`
 
 Set the `PUBLIC_HOST` environment variable to an accessible DNS name (or IP Address) of the proxy server.
 

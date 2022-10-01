@@ -2,6 +2,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 import AutoConfig from '@elite-libs/auto-config';
+import { getHostName } from './common.mjs';
 
 const {autoConfig} = AutoConfig;
 
@@ -10,10 +11,10 @@ export default autoConfig({
     args: ['--env', 'NODE_ENV'],
     default: 'development',
   },
-  publicHost: {
-    args: ['--public-host', 'PUBLIC_HOST'],
+  proxyHost: {
+    args: ['--proxy-host', 'PROXY_HOST'],
     help: 'The public host name for the proxy server.',
-    default: null,
+    default: getHostName(),
   },
   username: {
     args: ['--username', 'PROXY_USERNAME'],
@@ -26,7 +27,7 @@ export default autoConfig({
     required: true,
   },
   port: {
-    args: ['--port', 'PORT'],
+    args: ['--port', 'PROXY_PORT', 'PORT'],
     default: 5050,
     type: 'number',
     help: 'Port where the server will listen.',
