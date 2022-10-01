@@ -14,10 +14,8 @@ npm install -g @justsml/easy-proxy
 easy-proxy \
   --username test \
   --password test123 \
-  --port 5050
-
-# or
-npm start -- --username test --password test123 --port 5050
+  --port 5050 \
+  --proxyHost "$(curl --silent http://checkip.amazonaws.com)"
 ```
 
 ## Options
@@ -29,15 +27,22 @@ npm start -- --username test --password test123 --port 5050
 | port                  | `--port`, `PROXY_PORT`, `PORT` (default: `5050`)
 | proxyHost             | `--proxy-host`, `PROXY_HOST`
 
-Set the `PUBLIC_HOST` environment variable to an accessible DNS name (or IP Address) of the proxy server.
+Set the `PROXY_HOST` environment variable to an accessible DNS name (or IP Address) of the proxy server.
 
-For example, in AWS EC2, you can access the IP via an internal HTTP call:
+### Usage Tip
+
+Configure via environment variables in a shell script, for example:
 
 ```sh
-curl http://checkip.amazonaws.com
+export PROXY_PORT=80
+export PROXY_HOST=$(curl --silent http://checkip.amazonaws.com)
+export PROXY_USERNAME=proxy-user
+# Next, generate a password or change as needed.
+export PROXY_PASSWORD=$(uuidgen | head -c 8 | sed "y/ABCDEFGHIJKLMNOPQRSTUVWXYZ/abcdefghijklmnopqrstuvwxyz/")
+#   The password **will** be printed to the console in development, otherwise it'll be replaced with '*******'.
 
-# And to set it to the environment variable:
-export PUBLIC_HOST=$(curl http://checkip.amazonaws.com)
+# Start the proxy server
+easy-proxy
 ```
 
 ## Development

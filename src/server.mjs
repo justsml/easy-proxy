@@ -1,6 +1,6 @@
 import config from "./config.mjs";
 import { Server } from "proxy-chain";
-import { showUsageInfo } from "./common.mjs";
+import { showErrorInfo, showUsageInfo } from "./common.mjs";
 
 export const startProxy = () => {
   const server = new Server({
@@ -17,11 +17,15 @@ export const startProxy = () => {
   });
 
   server
-    .listen(() => {
-      const saferPassword =
-        config.env === "development"
+    .listen((error) => {
+      if (error) {
+        return showErrorInfo(error);
+      }
+      const showPassword = config.env === "development" || config.verbose;
+      const saferPassword = showPassword
           ? config.password
-          : Array(config.password?.length || 0).fill("*");
+          : Array(config.password?.length || 0).fill("*").join('');
+
       let host = config.proxyHost;
 
       const proxyUri = `http://${config.username}:${saferPassword}@${host

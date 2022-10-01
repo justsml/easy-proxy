@@ -28,9 +28,14 @@ export const handleShutdown = (server) => {
   });
 };
 
+export const showErrorInfo = (error) => {
+  console.error(chalk.bold.red('ERROR: ') + error.message);
+  console.info('\n' + chalk.dim(error.stack));
+};
+
 export const showUsageInfo = (proxyUri) => {
   console.log(`
-${chalk.bold.greenBright(`# `) + chalk.bgGreen.whiteBright(` Easy-Proxy Started! `) + ` ✨🚀
+${chalk.bold.greenBright(`# `) + chalk.bold.bgGreen.whiteBright(` Easy-Proxy Started! `) + ` ✨🚀
 
 ${chalk.magenta(`------------------ 👇 Client Proxy Config 👇 -----------------`)}
 
