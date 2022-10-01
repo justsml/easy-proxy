@@ -34,10 +34,10 @@ Set the `PUBLIC_HOST` environment variable to an accessible DNS name (or IP Addr
 For example, in AWS EC2, you can access the IP via an internal HTTP call:
 
 ```sh
-curl http://169.254.169.254/latest/meta-data/public-ipv4
+curl http://checkip.amazonaws.com
 
 # And to set it to the environment variable:
-export PUBLIC_HOST=$(curl http://169.254.169.254/latest/meta-data/public-ipv4)
+export PUBLIC_HOST=$(curl http://checkip.amazonaws.com)
 ```
 
 ## Development
